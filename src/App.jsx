@@ -14,8 +14,6 @@ const [residents, setResidents] = useState([])
 
 const [search, setSearch] = useState("")
 
-const [locationToID, setLocationToID] = useState("")
-
 useEffect(() => {
   const randNum = Math.floor(Math.random() * 126) + 1
   axios.get(`https://rickandmortyapi.com/api/location/${randNum}`)
@@ -24,7 +22,7 @@ useEffect(() => {
 } ,[])
 
 const searchButton = () => {
-  axios.get(`https://rickandmortyapi.com/api/location/${locationToID}`)
+  axios.get(`https://rickandmortyapi.com/api/location/${search}`)
   .then(res => {setRickMorty(res.data)
     setResidents(res.data.residents)})
 }
@@ -32,10 +30,6 @@ const searchButton = () => {
 useEffect(() => {
   axios.get(`https://rickandmortyapi.com/api/location`)
   .then(res => setLocations(res.data.results))
-} ,[])
-
-useEffect(() => {
-setLocationToID({search} === `${locations.map( location => {location.name})}` ? `${location.id}` : '0')
 } ,[])
 
 console.log(locations)
